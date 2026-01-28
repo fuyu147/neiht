@@ -1,3 +1,0 @@
-/home/fuyu147/art/sgrok/build/CMakeFiles/sgrok.dir
-/home/fuyu147/art/sgrok/build/CMakeFiles/edit_cache.dir
-/home/fuyu147/art/sgrok/build/CMakeFiles/rebuild_cache.dir

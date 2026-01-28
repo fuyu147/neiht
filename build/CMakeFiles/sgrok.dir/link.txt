@@ -1,1 +1,0 @@
-/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/sgrok.dir/link.d CMakeFiles/sgrok.dir/source/main.cc.o CMakeFiles/sgrok.dir/source/program/openfiledialog.cc.o -o sgrok  /usr/lib/libraylib.so -lgio-2.0 -lgobject-2.0 -lglib-2.0 -L/usr/lib -lraylib
