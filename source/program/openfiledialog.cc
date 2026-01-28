@@ -60,7 +60,7 @@ static void on_portal_response(GDBusConnection *connection,
         g_main_loop_quit(data->loop);
 }
 
-std::vector<std::string> proj::getFileFromDialog()
+std::vector<std::string> proj::program::getFileFromDialog()
 {
         GDBusProxy              *proxy           = nullptr;
         GError                  *error           = nullptr;

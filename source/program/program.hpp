@@ -1,5 +1,6 @@
 #include <raylib.h>
 #include <raymath.h>
+#include <sstream>
 #include <stdio.h>
 
 #include <cstdio>
@@ -17,6 +18,9 @@ namespace proj
 
 class program
 {
+        std::vector<std::string> files;
+        int                      tick = 0;
+
 public:
         program()
         {
@@ -26,7 +30,6 @@ public:
 
         void run()
         {
-
                 while (!WindowShouldClose())
                 {
                         this->draw();
@@ -41,7 +44,12 @@ private:
 
                 ClearBackground(WHITE);
 
-                DrawText("Hey", 20, 20, 30, BLACK);
+                std::stringstream strs;
+                strs << this->tick;
+                DrawText(strs.str().c_str(), 20, 20, 30, BLACK);
+
+                if (!this->files.empty())
+                        DrawText(this->files[0].c_str(), 40, 40, 30, BLACK);
 
                 EndDrawing();
         }
@@ -52,20 +60,15 @@ private:
 
                 if (key != 0) printf("key pressed: %c\n", key);
 
-                switch (key)
-                {
-                        case KEY_ACTION_QUIT:
-                                return 1;
-                        case KEY_ACTION_OPEN_FILE_DIALOG:
-                                break;
-                        default:
-                                break;
-                }
+                this->tick++;
 
-                return 0;
+                return handleKeys(key);
         }
-};
 
-std::vector<std::string> getFileFromDialog();
+        int handleKeys(int key);
+
+        // this blocks the flow
+        std::vector<std::string> getFileFromDialog();
+};
 
 } // namespace proj

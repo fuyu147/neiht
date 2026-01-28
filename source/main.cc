@@ -6,16 +6,9 @@ int main()
 {
         std::println("Hey there");
 
-        // auto *program = new proj::program();
-        //
-        // program->run();
+        auto *program = new proj::program();
 
-        auto files = proj::getFileFromDialog();
-
-        for (auto file : files)
-        {
-                std::println("filepath: {}", file);
-        }
+        program->run();
 
         return 0;
 }
