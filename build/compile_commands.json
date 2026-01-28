@@ -1,0 +1,14 @@
+[
+{
+  "directory": "/home/fuyu147/art/sgrok/build",
+  "command": "/usr/bin/c++  -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/libmount -I/usr/include/blkid -I/usr/include/sysprof-6 -std=gnu++26 -I/usr/include -o CMakeFiles/sgrok.dir/source/main.cc.o -c /home/fuyu147/art/sgrok/source/main.cc",
+  "file": "/home/fuyu147/art/sgrok/source/main.cc",
+  "output": "CMakeFiles/sgrok.dir/source/main.cc.o"
+},
+{
+  "directory": "/home/fuyu147/art/sgrok/build",
+  "command": "/usr/bin/c++  -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/libmount -I/usr/include/blkid -I/usr/include/sysprof-6 -std=gnu++26 -I/usr/include -o CMakeFiles/sgrok.dir/source/program/openfiledialog.cc.o -c /home/fuyu147/art/sgrok/source/program/openfiledialog.cc",
+  "file": "/home/fuyu147/art/sgrok/source/program/openfiledialog.cc",
+  "output": "CMakeFiles/sgrok.dir/source/program/openfiledialog.cc.o"
+}
+]
