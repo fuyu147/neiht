@@ -56,8 +56,7 @@ private:
         int     handleKeys(int key);
         vstring getFileFromDialog();
         void    spawnFileDialogThread();
-        void    setTabs();
-        void    getTabsFromFiles(std::vector<std::string> files);
+        void    setTabsFromFiles(std::vector<std::string> files);
         int     getNextID();
 };
 

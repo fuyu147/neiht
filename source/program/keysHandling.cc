@@ -25,7 +25,7 @@ int proj::program::handleKeys(int key)
 void proj::program::spawnFileDialogThread()
 {
         std::thread([this] {
-                this->getTabsFromFiles(this->getFileFromDialog());
+                this->setTabsFromFiles(this->getFileFromDialog());
                 dialogOpen = false;
         }).detach();
 }

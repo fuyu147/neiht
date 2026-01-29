@@ -1,6 +1,6 @@
 #include "program.hpp"
 
-void proj::program::getTabsFromFiles(std::vector<std::string> files)
+void proj::program::setTabsFromFiles(std::vector<std::string> files)
 {
         for (auto file : files)
         {
@@ -16,7 +16,9 @@ void proj::program::getTabsFromFiles(std::vector<std::string> files)
 
                 if (!already_open)
                 {
-                        this->tabs.push_back(Tab(this->getNextID(), file));
+                        this->tabs.push_back(Tab(this->getNextID(), file,
+                                                 (Vector2){0, 0},
+                                                 (Vector2){0, 0}));
                 }
         }
 }
