@@ -13,14 +13,19 @@ int proj::program::handleKeys(int key)
                 case KEY_ACTION_OPEN_FILE_DIALOG:
                         if (!dialogOpen.exchange(true))
                         {
-                                std::thread([this] {
-                                        this->files = this->getFileFromDialog();
-                                        dialogOpen  = false;
-                                }).detach();
+                                this->spawnFileDialogThread();
                         }
                         break;
                 default:
                         break;
         }
         return 0;
+}
+
+void proj::program::spawnFileDialogThread()
+{
+        std::thread([this] {
+                this->setTabs();
+                dialogOpen  = false;
+        }).detach();
 }

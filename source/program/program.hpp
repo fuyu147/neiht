@@ -1,11 +1,13 @@
 #include <raylib.h>
 #include <raymath.h>
-#include <sstream>
-#include <stdio.h>
 
-#include <cstdio>
 #include <string>
 #include <vector>
+
+#include "tab.hpp"
+
+typedef std::vector<Tab>         vtab;
+typedef std::vector<std::string> vstring;
 
 enum KEY_ACTION
 {
@@ -18,8 +20,8 @@ namespace proj
 
 class program
 {
-        std::vector<std::string> files;
-        int                      tick = 0;
+        vtab tabs;
+        int  tick = 0;
 
 public:
         program()
@@ -38,37 +40,13 @@ public:
         }
 
 private:
-        void draw()
-        {
-                BeginDrawing();
-
-                ClearBackground(WHITE);
-
-                std::stringstream strs;
-                strs << this->tick;
-                DrawText(strs.str().c_str(), 20, 20, 30, BLACK);
-
-                if (!this->files.empty())
-                        DrawText(this->files[0].c_str(), 40, 40, 30, BLACK);
-
-                EndDrawing();
-        }
-
-        int update()
-        {
-                int key = GetCharPressed();
-
-                if (key != 0) printf("key pressed: %c\n", key);
-
-                this->tick++;
-
-                return handleKeys(key);
-        }
-
-        int handleKeys(int key);
-
-        // this blocks the flow
-        std::vector<std::string> getFileFromDialog();
+        void    draw();
+        int     update();
+        int     handleKeys(int key);
+        vstring getFileFromDialog();
+        void    spawnFileDialogThread();
+        void    setTabs();
+        vtab    getTabsFromFiles(std::vector<std::string> files);
 };
 
 } // namespace proj
