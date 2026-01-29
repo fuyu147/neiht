@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "tab.hpp"
+#include "../tab/tab.hpp"
 
 typedef std::vector<std::string> vstring;
 
