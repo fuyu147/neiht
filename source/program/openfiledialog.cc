@@ -5,6 +5,9 @@
 #include <string>
 #include <vector>
 
+// Le code suivant à principalement été généré par l'IA (parce que DBus/XDG est
+// de la crisse de marde à faire soi-même)
+
 // Struct to hold data for the callback
 struct UserData
 {

@@ -1,26 +1,41 @@
 #pragma once
 
+#include "raylib.h"
+
 #include <string>
 #include <vector>
 
-enum TAB_ACTION
+namespace proj
 {
-        TAB_ACTION_NONE,
-        TAB_ACTION_WRITE_TO_FILE,
-        TAB_ACTION_READ_FROM_FILE,
-        TAB_ACTION_CLOSE_FILE,
+
+typedef std::vector<std::string> vstring;
+
+enum TAB_STATE
+{
+        TAB_STATE_NONE,
+        TAB_STATE_WRITE,
+        TAB_STATE_READ,
+        TAB_STATE_CLOSE,
 };
 
 struct Tab
 {
-        std::string              file;
-        std::vector<std::string> lines;
-        TAB_ACTION               actionToDo;
+        int         id;    // used to check if the tab is selected
+        std::string file;  // filepath
+        std::string title; // filename
+        vstring     lines; // content
+        TAB_STATE   state; // next action todo
+        Rectangle   rectangle;
 
-        Tab(std::string file)
+        Tab(int id, std::string file, Vector2 position, Vector2 scale)
+            : id(id), file(file), lines(), state(TAB_STATE_NONE)
         {
-                this->file       = file;
-                this->lines      = {};
-                this->actionToDo = TAB_ACTION_NONE;
+                this->rectangle.x      = position.x;
+                this->rectangle.y      = position.y;
+                this->rectangle.width  = scale.x;
+                this->rectangle.height = scale.y;
         }
 };
+
+typedef std::vector<Tab> vtab;
+}; // namespace proj

@@ -6,7 +6,6 @@
 
 #include "tab.hpp"
 
-typedef std::vector<Tab>         vtab;
 typedef std::vector<std::string> vstring;
 
 enum KEY_ACTION
@@ -15,13 +14,22 @@ enum KEY_ACTION
         KEY_ACTION_OPEN_FILE_DIALOG = 'o',
 };
 
+enum PROGAM_STATE
+{
+        PROGAM_STATE_CLOSE,
+        PROGAM_STATE_RUN,
+        PROGAM_STATE_MAIN_MENU, // not sure, might never be a thing
+};
+
 namespace proj
 {
 
 class program
 {
-        vtab tabs;
-        int  tick = 0;
+        vtab         tabs;
+        int          selectedTabID;
+        int          tick = 0;
+        PROGAM_STATE state;
 
 public:
         program()
@@ -34,8 +42,11 @@ public:
         {
                 while (!WindowShouldClose())
                 {
+                        int err = this->update();
+                        if (err != 0) break;
                         this->draw();
-                        if (this->update() == 1) return;
+
+                        if (this->state == PROGAM_STATE_CLOSE) break;
                 }
         }
 
@@ -46,7 +57,8 @@ private:
         vstring getFileFromDialog();
         void    spawnFileDialogThread();
         void    setTabs();
-        vtab    getTabsFromFiles(std::vector<std::string> files);
+        void    getTabsFromFiles(std::vector<std::string> files);
+        int     getNextID();
 };
 
 } // namespace proj

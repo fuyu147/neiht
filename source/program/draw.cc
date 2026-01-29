@@ -17,13 +17,12 @@ void proj::program::draw()
 
         for (auto &tab : this->tabs)
         {
-                // DrawText(this->files[0].c_str(), 40, 40, 30, BLACK);
-                DrawText(tab.file.c_str(), 40, initial + offset * step, 30,
-                         BLACK);
-                offset++;
+                if (tab.id == this->selectedTabID)
+                {
+                        DrawText(tab.file.c_str(), 40, initial + offset * step,
+                                 30, BLACK);
+                }
         }
-
-        // if (!this->files.empty())
 
         EndDrawing();
 }
