@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 project(sgrok)
 
 set(CMAKE_CXX_STANDARD 26)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 find_package(raylib REQUIRED)
 
@@ -14,6 +15,8 @@ file(GLOB SRC_FILES
 )
 
 add_executable(sgrok ${SRC_FILES})
+
+# target_compile_definitions(sgrok PRIVATE DEBUG)
 
 target_include_directories(sgrok PRIVATE ${GIO_INCLUDE_DIRS})
 target_link_libraries(sgrok PRIVATE raylib ${GIO_LIBRARIES})

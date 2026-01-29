@@ -8,6 +8,9 @@
 
 typedef std::vector<std::string> vstring;
 
+const Color C_PROGAM_COLOR_BACKGROUND = (Color){0x21, 0x20, 0x1F, 0xFF};
+const Color C_PROGAM_COLOR_TEXT       = (Color){255, 255, 255, 255};
+
 enum KEY_ACTION
 {
         KEY_ACTION_QUIT             = 'q',
@@ -26,9 +29,9 @@ namespace proj
 
 class program
 {
-        vtab         tabs;
-        int          selectedTabID;
-        int          tick = 0;
+        vtab          tabs;
+        int           selectedTabID;
+        int           tick = 0;
         PROGRAM_STATE state;
 
 public:
@@ -50,10 +53,16 @@ public:
                 }
         }
 
+        const vtab &getTabs() const
+        {
+                return this->tabs;
+        }
+
 private:
         int     getNextID();
         int     handleKeys(int key);
         int     update();
+        void    checkMouse();
         void    draw();
         void    setTabsFromFiles(std::vector<std::string> files);
         void    spawnFileDialogThread();

@@ -2,7 +2,7 @@
 
 build:
 	clear
-	cmake . -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+	cmake . -B build
 	make -C build
 
 run: build
