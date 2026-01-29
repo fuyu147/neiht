@@ -5,8 +5,9 @@ pourquoi raylib over GTK? parce que
 
 TODO:
         - [ ] onglets
-                - [ ] affichage
-                - [ ] position
+                - [x] affichage
+                - [x] position
+                - [ ] faire sûr que ça dépasse pas de la fenêtre
         - [ ] fichier
                 - [ ] afficher le contenu
                 - [ ] afficher les numéros de lignes
