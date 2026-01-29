@@ -1,0 +1,12 @@
+BUT: faire un programme qui output le contenu d'un fichier... peut-être
+l'écriture aussi??
+
+
+TODO:
+        - [ ] onglets
+                - [ ] affichage
+                - [ ] position
+        - [ ] fichier
+                - [ ] afficher le contenu
+                - [ ] afficher les numéros de lignes
+                - [ ] prendre en charge le défilement

@@ -51,13 +51,13 @@ public:
         }
 
 private:
-        void    draw();
-        int     update();
-        int     handleKeys(int key);
-        vstring getFileFromDialog();
-        void    spawnFileDialogThread();
-        void    setTabsFromFiles(std::vector<std::string> files);
         int     getNextID();
+        int     handleKeys(int key);
+        int     update();
+        void    draw();
+        void    setTabsFromFiles(std::vector<std::string> files);
+        void    spawnFileDialogThread();
+        vstring getFileFromDialog();
 };
 
 } // namespace proj
