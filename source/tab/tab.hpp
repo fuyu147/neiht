@@ -49,6 +49,7 @@ struct Tab
         {
         }
 
+        int  update();
         void draw();
 
         void  updateState(bool isHoveredByMouse, bool isSelected);

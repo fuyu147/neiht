@@ -11,6 +11,14 @@ int proj::program::update()
 
         if (this->tick++ > 10000) this->tick = 0;
 
+        for (auto tab : this->tabs)
+        {
+                if (this->selectedTabID == tab.id)
+                {
+                        tab.update();
+                }
+        }
+
         return handleKeys(key);
 }
 
