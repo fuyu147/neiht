@@ -1,4 +1,5 @@
 #include "program.hpp"
+#include <cstdio>
 #ifdef DEBUG
 #include <sstream>
 #endif
@@ -15,7 +16,10 @@ void proj::program::draw()
 
                 if (tab.id == this->selectedTabID)
                 {
-                        // display content of file
+                        if (tab.lines.size() != 0)
+                        {
+                                printf("line: %s\n", tab.lines[0].c_str());
+                        }
                 }
         }
 

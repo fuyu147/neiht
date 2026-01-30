@@ -15,7 +15,15 @@ int proj::program::update()
         {
                 if (this->selectedTabID == tab.id)
                 {
-                        tab.update();
+                        int err = tab.update();
+                        if (err)
+                        {
+                                printf("error updating tab");
+                                return 1;
+                        }
+
+                        printf("line count : %zu\n", tab.lines.size());
+                        printf("first line: <%s>", tab.lines[0].c_str());
                 }
         }
 
