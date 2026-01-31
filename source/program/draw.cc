@@ -18,15 +18,34 @@ void proj::program::draw()
                 {
                         if (tab.lines.size() > 0)
                         {
-                                // how should i get the proper offset and
-                                // stuff...
 #ifdef DEBUG
                                 std::println("line: {}\n",
                                              tab.lines[0].c_str());
 #endif
+                                BeginScissorMode(this->textView.x,
+                                                 this->textView.y,
+                                                 this->textView.width,
+                                                 this->textView.height);
 
-                                DrawText(tab.lines[0].c_str(), 50, 50, 30,
-                                         WHITE);
+                                for (int i = 0; i < tab.lines.size(); i++)
+                                {
+                                        float y = this->textView.y +
+                                                  i * C_TEXT_LINE_HEIGHT -
+                                                  tab.scrollOffsetY;
+
+                                        // Optional early-out for performance
+                                        if (y + C_TEXT_LINE_HEIGHT <
+                                                this->textView.y ||
+                                            y > this->textView.y +
+                                                    this->textView.height)
+                                                continue;
+
+                                        DrawText(tab.lines[i].c_str(),
+                                                 this->textView.x, y, 30,
+                                                 WHITE);
+                                }
+
+                                EndScissorMode();
                         }
                 }
         }

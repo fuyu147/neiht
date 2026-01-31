@@ -11,7 +11,14 @@ int proj::program::update()
 
         this->checkMouse();
 
+        this->textView.width  = GetScreenWidth() - C_TEXT_VIEW_MARGIN;
+        this->textView.height = GetScreenHeight() - C_TEXT_VIEW_MARGIN;
+
 #ifdef DEBUG
+        std::println("this->textView: {} {} {} {}", this->textView.x,
+                     this->textView.y, this->textView.height,
+                     this->textView.width);
+
         if (key != 0) std::println("key pressed: {}\n", (char)key);
 #endif
 
@@ -21,6 +28,18 @@ int proj::program::update()
         {
                 if (this->selectedTabID == tab.id)
                 {
+
+                        float wheel = GetMouseWheelMove();
+                        tab.scrollOffsetY -= wheel * C_SCROLL_SPEED;
+
+                        float contentHeight =
+                            tab.lines.size() * C_TEXT_LINE_HEIGHT;
+                        float maxScroll = std::max(
+                            0.0f, contentHeight - this->textView.height);
+
+                        tab.scrollOffsetY =
+                            std::clamp(tab.scrollOffsetY, 0.0f, maxScroll);
+
                         int err = tab.getLines();
                         if (err)
                         {
@@ -36,7 +55,9 @@ int proj::program::update()
                 }
         }
 
-        return handleKeys(key);
+        handleKeys(key);
+
+        return 0;
 }
 
 void proj::program::checkMouse()
