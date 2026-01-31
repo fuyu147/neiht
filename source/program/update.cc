@@ -5,7 +5,7 @@
 #include <print>
 #endif
 
-int proj::program::update()
+void proj::program::update()
 {
         int key = GetCharPressed();
 
@@ -41,14 +41,11 @@ int proj::program::update()
                             std::clamp(tab.scrollOffsetY, 0.0f, maxScroll);
 
                         int err = tab.getLines();
+#ifdef DEBUG
                         if (err)
                         {
-#ifdef DEBUG
                                 std::println("error updating tab");
-#endif
-                                return 1;
                         }
-#ifdef DEBUG
                         std::println("line count : {}", tab.lines.size());
 
 #endif
@@ -56,8 +53,6 @@ int proj::program::update()
         }
 
         handleKeys(key);
-
-        return 0;
 }
 
 void proj::program::checkMouse()

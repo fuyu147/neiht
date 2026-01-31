@@ -55,8 +55,7 @@ public:
                 while (!WindowShouldClose() &&
                        this->state != PROGRAM_STATE_CLOSE)
                 {
-                        int err = this->update();
-                        if (err != 0) break;
+                        this->update();
                         this->draw();
                 }
         }
@@ -68,12 +67,12 @@ public:
 
 private:
         int     getNextID();
-        int     update();
         void    checkMouse();
         void    draw();
         void    handleKeys(int key);
         void    setTabsFromFiles(std::vector<std::string> files);
         void    spawnFileDialogThread();
+        void    update();
         vstring getFileFromDialog();
 };
 
