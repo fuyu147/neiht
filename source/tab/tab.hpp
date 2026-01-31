@@ -49,9 +49,8 @@ struct Tab
         {
         }
 
-        int  update();
-        void draw();
-
+        void  draw();
+        int   getLines();
         void  updateState(bool isHoveredByMouse, bool isSelected);
         Color getBackgroundColorFromState();
 };

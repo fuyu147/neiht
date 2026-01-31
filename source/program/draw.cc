@@ -1,6 +1,6 @@
 #include "program.hpp"
-#include <cstdio>
 #ifdef DEBUG
+#include <print>
 #include <sstream>
 #endif
 
@@ -16,9 +16,17 @@ void proj::program::draw()
 
                 if (tab.id == this->selectedTabID)
                 {
-                        if (tab.lines.size() != 0)
+                        if (tab.lines.size() > 0)
                         {
-                                printf("line: %s\n", tab.lines[0].c_str());
+                                // how should i get the proper offset and
+                                // stuff...
+#ifdef DEBUG
+                                std::println("line: {}\n",
+                                             tab.lines[0].c_str());
+#endif
+
+                                DrawText(tab.lines[0].c_str(), 50, 50, 30,
+                                         WHITE);
                         }
                 }
         }

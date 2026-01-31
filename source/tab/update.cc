@@ -2,7 +2,7 @@
 #include <fstream>
 #include <string>
 
-int proj::Tab::update()
+int proj::Tab::getLines()
 {
         std::ifstream fstream(this->file);
 

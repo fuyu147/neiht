@@ -8,6 +8,8 @@
 
 typedef std::vector<std::string> vstring;
 
+namespace proj
+{
 const Color C_PROGAM_COLOR_BACKGROUND = (Color){0x21, 0x20, 0x1F, 0xFF};
 const Color C_PROGAM_COLOR_TEXT       = (Color){255, 255, 255, 255};
 
@@ -21,11 +23,7 @@ enum PROGRAM_STATE
 {
         PROGRAM_STATE_CLOSE,
         PROGRAM_STATE_RUN,
-        PROGRAM_STATE_MAIN_MENU, // not sure, might never be a thing
 };
-
-namespace proj
-{
 
 class program
 {
@@ -35,7 +33,7 @@ class program
         PROGRAM_STATE state;
 
 public:
-        program()
+        program() : tabs(), selectedTabID(), tick(), state(PROGRAM_STATE_RUN)
         {
                 InitWindow(1200, 700, "This is certainly a title of all times");
                 SetExitKey(KEY_Q);
@@ -43,13 +41,12 @@ public:
 
         void run()
         {
-                while (!WindowShouldClose())
+                while (!WindowShouldClose() &&
+                       this->state != PROGRAM_STATE_CLOSE)
                 {
                         int err = this->update();
                         if (err != 0) break;
                         this->draw();
-
-                        if (this->state == PROGRAM_STATE_CLOSE) break;
                 }
         }
 
@@ -60,10 +57,10 @@ public:
 
 private:
         int     getNextID();
-        int     handleKeys(int key);
         int     update();
         void    checkMouse();
         void    draw();
+        void    handleKeys(int key);
         void    setTabsFromFiles(std::vector<std::string> files);
         void    spawnFileDialogThread();
         vstring getFileFromDialog();

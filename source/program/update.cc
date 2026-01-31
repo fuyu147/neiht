@@ -1,29 +1,38 @@
 #include "program.hpp"
 #include <raylib.h>
 
+#ifdef DEBUG
+#include <print>
+#endif
+
 int proj::program::update()
 {
         int key = GetCharPressed();
 
         this->checkMouse();
 
-        if (key != 0) printf("key pressed: %c\n", key);
+#ifdef DEBUG
+        if (key != 0) std::println("key pressed: {}\n", (char)key);
+#endif
 
         if (this->tick++ > 10000) this->tick = 0;
 
-        for (auto tab : this->tabs)
+        for (auto &tab : this->tabs)
         {
                 if (this->selectedTabID == tab.id)
                 {
-                        int err = tab.update();
+                        int err = tab.getLines();
                         if (err)
                         {
-                                printf("error updating tab");
+#ifdef DEBUG
+                                std::println("error updating tab");
+#endif
                                 return 1;
                         }
+#ifdef DEBUG
+                        std::println("line count : {}", tab.lines.size());
 
-                        printf("line count : %zu\n", tab.lines.size());
-                        printf("first line: <%s>", tab.lines[0].c_str());
+#endif
                 }
         }
 
@@ -50,6 +59,7 @@ void proj::program::checkMouse()
         {
                 bool isHovered =
                     CheckCollisionPointRec(mousePosition, tab.rect);
+
                 tab.updateState(isHovered, tab.id == this->selectedTabID);
         }
 }

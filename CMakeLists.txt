@@ -16,7 +16,7 @@ file(GLOB SRC_FILES
 
 add_executable(sgrok ${SRC_FILES})
 
-# target_compile_definitions(sgrok PRIVATE DEBUG)
+target_compile_definitions(sgrok PRIVATE DEBUG)
 
 target_include_directories(sgrok PRIVATE ${GIO_INCLUDE_DIRS})
 target_link_libraries(sgrok PRIVATE raylib ${GIO_LIBRARIES})
