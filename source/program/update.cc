@@ -11,8 +11,11 @@ void proj::program::update()
 
         this->checkMouse();
 
-        this->textView.width  = GetScreenWidth() - C_TEXT_VIEW_MARGIN;
-        this->textView.height = GetScreenHeight() - C_TEXT_VIEW_MARGIN;
+        this->textView.x     = C_TEXT_VIEW_MARGIN;
+        this->textView.y     = C_TEXT_VIEW_MARGIN + C_TAB_HEIGHT;
+        this->textView.width = GetScreenWidth() - C_TEXT_VIEW_MARGIN * 2;
+        this->textView.height =
+            GetScreenHeight() - C_TEXT_VIEW_MARGIN * 2 - C_TAB_HEIGHT;
 
 #ifdef DEBUG
         std::println("this->textView: {} {} {} {}", this->textView.x,
@@ -65,8 +68,16 @@ void proj::program::checkMouse()
                 {
                         if (CheckCollisionPointRec(mousePosition, tab.rect))
                         {
-                                this->selectedTabID = tab.id;
-                                break;
+                                if (this->selectedTabID == tab.id)
+                                {
+                                        this->selectedTabID = -1;
+                                        break;
+                                }
+                                else
+                                {
+                                        this->selectedTabID = tab.id;
+                                        break;
+                                }
                         }
                 }
         }
