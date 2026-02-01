@@ -1,7 +1,7 @@
 # Based on Microsoft style
 ---
 Language:        Cpp
-AccessModifierOffset: -8
+AccessModifierOffset: -2
 
 AlignAfterOpenBracket: Align
 AlignConsecutiveMacros: true
@@ -112,7 +112,7 @@ IndentExternBlock: AfterExternBlock
 IndentGotoLabels: true
 IndentPPDirectives: None
 IndentRequiresClause: true
-IndentWidth:     8
+IndentWidth:     2
 IndentWrappedFunctionNames: false
 InsertBraces:    false
 InsertNewlineAtEOF: false

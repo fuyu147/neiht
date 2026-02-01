@@ -20,40 +20,40 @@ const Color C_TAB_COLOR_TEXT                = (Color){255, 255, 255, 255};
 
 enum TAB_ACTION
 {
-        TAB_ACTION_NONE,
-        TAB_ACTION_WRITE,
-        TAB_ACTION_READ,
-        TAB_ACTION_CLOSE,
+  TAB_ACTION_NONE,
+  TAB_ACTION_WRITE,
+  TAB_ACTION_READ,
+  TAB_ACTION_CLOSE,
 };
 
 enum TAB_STATE
 {
-        TAB_STATE_DEFAULT,
-        TAB_STATE_HOVERED,
-        TAB_STATE_SELECTED,
+  TAB_STATE_DEFAULT,
+  TAB_STATE_HOVERED,
+  TAB_STATE_SELECTED,
 };
 
 struct Tab
 {
-        int         id; // used to check if the tab is selected
-        float       scrollOffsetY;
-        Rectangle   rect;
-        std::string file;   // filepath
-        std::string title;  // filename
-        TAB_ACTION  action; // next action todo
-        TAB_STATE   state;
-        vstring     lines; // content
+  int         id; // used to check if the tab is selected
+  float       scrollOffsetY;
+  Rectangle   rect;
+  std::string file;   // filepath
+  std::string title;  // filename
+  TAB_ACTION  action; // next action todo
+  TAB_STATE   state;
+  vstring     lines; // content
 
-        Tab(int id, std::string file, std::string title, Rectangle rect)
-            : id(id), rect(rect), file(file), title(title),
-              action(TAB_ACTION_NONE), state(TAB_STATE_DEFAULT), lines()
-        {
-        }
+  Tab(int id, std::string file, std::string title, Rectangle rect)
+      : id(id), rect(rect), file(file), title(title), action(TAB_ACTION_NONE),
+        state(TAB_STATE_DEFAULT), lines()
+  {
+  }
 
-        void  draw();
-        int   getLines();
-        void  updateState(bool isHoveredByMouse, bool isSelected);
-        Color getBackgroundColorFromState();
+  void  draw();
+  int   getLines();
+  void  updateState(bool isHoveredByMouse, bool isSelected);
+  Color getBackgroundColorFromState();
 };
 
 typedef std::vector<Tab> vtab;

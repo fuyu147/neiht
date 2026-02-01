@@ -1,4 +1,6 @@
 #include "program.hpp"
+
+#include <algorithm>
 #include <raylib.h>
 
 #ifdef DEBUG
@@ -7,86 +9,81 @@
 
 void proj::program::update()
 {
-        int key = GetCharPressed();
+  int key = GetCharPressed();
 
-        this->checkMouse();
+  this->checkMouse();
 
-        this->textView.x     = C_TEXT_VIEW_MARGIN;
-        this->textView.y     = C_TEXT_VIEW_MARGIN + C_TAB_HEIGHT;
-        this->textView.width = GetScreenWidth() - C_TEXT_VIEW_MARGIN * 2;
-        this->textView.height =
-            GetScreenHeight() - C_TEXT_VIEW_MARGIN * 2 - C_TAB_HEIGHT;
+  this->textView.x     = C_TEXT_VIEW_MARGIN;
+  this->textView.y     = C_TEXT_VIEW_MARGIN + C_TAB_HEIGHT;
+  this->textView.width = GetScreenWidth() - C_TEXT_VIEW_MARGIN * 2;
+  this->textView.height =
+      GetScreenHeight() - C_TEXT_VIEW_MARGIN * 2 - C_TAB_HEIGHT;
 
 #ifdef DEBUG
-        std::println("this->textView: {} {} {} {}", this->textView.x,
-                     this->textView.y, this->textView.height,
-                     this->textView.width);
+  std::println("this->textView: {} {} {} {}", this->textView.x,
+               this->textView.y, this->textView.height, this->textView.width);
 
-        if (key != 0) std::println("key pressed: {}\n", (char)key);
+  if (key != 0) std::println("key pressed: {}\n", (char)key);
 #endif
 
-        if (this->tick++ > 10000) this->tick = 0;
+  if (this->tick++ > 10000) this->tick = 0;
 
-        for (auto &tab : this->tabs)
-        {
-                if (this->selectedTabID == tab.id)
-                {
+  for (auto &tab : this->tabs)
+  {
+    if (this->selectedTabID == tab.id)
+    {
 
-                        float wheel = GetMouseWheelMove();
-                        tab.scrollOffsetY -= wheel * C_SCROLL_SPEED;
+      float wheel = GetMouseWheelMove();
+      tab.scrollOffsetY -= wheel * C_SCROLL_SPEED;
 
-                        float contentHeight =
-                            tab.lines.size() * C_TEXT_LINE_HEIGHT;
-                        float maxScroll = std::max(
-                            0.0f, contentHeight - this->textView.height);
+      float contentHeight = tab.lines.size() * C_TEXT_LINE_HEIGHT;
+      float maxScroll   = std::max(0.0f, contentHeight - this->textView.height);
 
-                        tab.scrollOffsetY =
-                            std::clamp(tab.scrollOffsetY, 0.0f, maxScroll);
+      tab.scrollOffsetY = std::clamp(tab.scrollOffsetY, 0.0f, maxScroll);
 
-                        int err = tab.getLines();
+      int err           = tab.getLines();
 #ifdef DEBUG
-                        if (err)
-                        {
-                                std::println("error updating tab");
-                        }
-                        std::println("line count : {}", tab.lines.size());
+      if (err)
+      {
+        std::println("error updating tab");
+      }
+      std::println("line count : {}", tab.lines.size());
 
 #endif
-                }
-        }
+    }
+  }
 
-        handleKeys(key);
+  handleKeys(key);
 }
 
 void proj::program::checkMouse()
 {
-        auto mousePosition = GetMousePosition();
+  auto mousePosition = GetMousePosition();
 
-        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+  if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+  {
+    for (Tab &tab : this->tabs)
+    {
+      if (CheckCollisionPointRec(mousePosition, tab.rect))
+      {
+        if (this->selectedTabID == tab.id)
         {
-                for (Tab &tab : this->tabs)
-                {
-                        if (CheckCollisionPointRec(mousePosition, tab.rect))
-                        {
-                                if (this->selectedTabID == tab.id)
-                                {
-                                        this->selectedTabID = -1;
-                                        break;
-                                }
-                                else
-                                {
-                                        this->selectedTabID = tab.id;
-                                        break;
-                                }
-                        }
-                }
+          this->selectedTabID = -1;
+          break;
         }
-
-        for (Tab &tab : this->tabs)
+        else
         {
-                bool isHovered =
-                    CheckCollisionPointRec(mousePosition, tab.rect);
-
-                tab.updateState(isHovered, tab.id == this->selectedTabID);
+          this->selectedTabID = tab.id;
+          break;
         }
+      }
+    }
+  }
+
+  for (Tab &tab : this->tabs)
+  {
+    bool isHovered = CheckCollisionPointRec(mousePosition, tab.rect);
+
+    tab.updateState(isHovered, tab.id == this->selectedTabID);
+  }
 }

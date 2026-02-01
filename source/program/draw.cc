@@ -1,4 +1,5 @@
 #include "program.hpp"
+
 #ifdef DEBUG
 #include <print>
 #include <sstream>
@@ -6,55 +7,47 @@
 
 void proj::program::draw()
 {
-        BeginDrawing();
+  BeginDrawing();
 
-        ClearBackground(C_PROGAM_COLOR_BACKGROUND);
+  ClearBackground(C_PROGAM_COLOR_BACKGROUND);
 
-        for (auto &tab : this->tabs)
-        {
-                tab.draw();
+  for (auto &tab : this->tabs)
+  {
+    tab.draw();
 
-                if (tab.id == this->selectedTabID)
-                {
-                        if (tab.lines.size() > 0)
-                        {
+    if (tab.id == this->selectedTabID)
+    {
+      if (tab.lines.size() > 0)
+      {
 #ifdef DEBUG
-                                std::println("line: {}\n",
-                                             tab.lines[0].c_str());
+        std::println("line: {}\n", tab.lines[0].c_str());
 #endif
-                                BeginScissorMode(this->textView.x,
-                                                 this->textView.y,
-                                                 this->textView.width,
-                                                 this->textView.height);
+        BeginScissorMode(this->textView.x, this->textView.y,
+                         this->textView.width, this->textView.height);
 
-                                for (int i = 0; i < tab.lines.size(); i++)
-                                {
-                                        float y = this->textView.y +
-                                                  i * C_TEXT_LINE_HEIGHT -
-                                                  tab.scrollOffsetY;
+        for (int i = 0; i < tab.lines.size(); i++)
+        {
+          float y =
+              this->textView.y + i * C_TEXT_LINE_HEIGHT - tab.scrollOffsetY;
 
-                                        // Optional early-out for performance
-                                        if (y + C_TEXT_LINE_HEIGHT <
-                                                this->textView.y ||
-                                            y > this->textView.y +
-                                                    this->textView.height)
-                                                continue;
+          // Optional early-out for performance
+          if (y + C_TEXT_LINE_HEIGHT < this->textView.y ||
+              y > this->textView.y + this->textView.height)
+            continue;
 
-                                        DrawText(tab.lines[i].c_str(),
-                                                 this->textView.x, y, 30,
-                                                 WHITE);
-                                }
-
-                                EndScissorMode();
-                        }
-                }
+          DrawText(tab.lines[i].c_str(), this->textView.x, y, 30, WHITE);
         }
 
+        EndScissorMode();
+      }
+    }
+  }
+
 #ifdef DEBUG
-        std::stringstream strs;
-        strs << this->tick;
-        DrawText(strs.str().c_str(), 20, 20, 30, BLACK);
+  std::stringstream strs;
+  strs << this->tick;
+  DrawText(strs.str().c_str(), 20, 20, 30, BLACK);
 #endif
 
-        EndDrawing();
+  EndDrawing();
 }

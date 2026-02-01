@@ -4,22 +4,17 @@
 
 int proj::Tab::getLines()
 {
-        std::ifstream fstream(this->file);
+  std::ifstream fstream(this->file);
 
-        if (!fstream.is_open())
-        {
-                return 1;
-        }
+  if (!fstream.is_open()) return 1;
 
-        this->lines = {};
-        std::string buff;
+  this->lines = {};
+  std::string buff;
 
-        while (std::getline(fstream, buff))
-        {
-                this->lines.push_back(buff);
-        }
+  while (std::getline(fstream, buff))
+    this->lines.push_back(buff);
 
-        fstream.close();
+  fstream.close();
 
-        return 0;
+  return 0;
 }

@@ -2,9 +2,9 @@
 
 int main()
 {
-        auto *program = new proj::program();
+  auto *program = new proj::program();
 
-        program->run();
+  program->run();
 
-        return 0;
+  return 0;
 }
