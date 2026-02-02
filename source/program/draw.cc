@@ -28,14 +28,14 @@ void proj::program::draw()
         for (int i = 0; i < tab.lines.size(); i++)
         {
           float y =
-              this->textView.y + i * C_TEXT_LINE_HEIGHT - tab.scrollOffsetY;
+              this->textView.y + i * C_TEXT_LINE_HEIGHT - tab.scrollOffset.y;
 
-          // Optional early-out for performance
           if (y + C_TEXT_LINE_HEIGHT < this->textView.y ||
               y > this->textView.y + this->textView.height)
             continue;
 
-          DrawText(tab.lines[i].c_str(), this->textView.x, y, 30, WHITE);
+          DrawText(tab.lines[i].c_str(), this->textView.x - tab.scrollOffset.x,
+                   y, 30, WHITE);
         }
 
         EndScissorMode();

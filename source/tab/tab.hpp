@@ -35,23 +35,25 @@ enum TAB_STATE
 
 struct Tab
 {
-  int         id; // used to check if the tab is selected
-  float       scrollOffsetY;
+  int         contentWidth = 0;
+  int         id           = -1;
   Rectangle   rect;
-  std::string file;   // filepath
-  std::string title;  // filename
-  TAB_ACTION  action; // next action todo
+  std::string file;
+  std::string title;
+  TAB_ACTION  action;
   TAB_STATE   state;
-  vstring     lines; // content
+  Vector2     scrollOffset;
+  vstring     lines;
 
   Tab(int id, std::string file, std::string title, Rectangle rect)
-      : id(id), rect(rect), file(file), title(title), action(TAB_ACTION_NONE),
+      : rect(rect), file(file), title(title), action(TAB_ACTION_NONE),
         state(TAB_STATE_DEFAULT), lines()
   {
   }
 
   void  draw();
-  int   getLines();
+  void  getContentWidth();
+  void  getLines();
   void  updateState(bool isHoveredByMouse, bool isSelected);
   Color getBackgroundColorFromState();
 };

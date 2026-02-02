@@ -34,22 +34,26 @@ void proj::program::update()
     {
 
       float wheel = GetMouseWheelMove();
-      tab.scrollOffsetY -= wheel * C_SCROLL_SPEED;
-
-      float contentHeight = tab.lines.size() * C_TEXT_LINE_HEIGHT;
-      float maxScroll   = std::max(0.0f, contentHeight - this->textView.height);
-
-      tab.scrollOffsetY = std::clamp(tab.scrollOffsetY, 0.0f, maxScroll);
-
-      int err           = tab.getLines();
-#ifdef DEBUG
-      if (err)
+      if (IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_RIGHT_SHIFT))
       {
-        std::println("error updating tab");
-      }
-      std::println("line count : {}", tab.lines.size());
+        tab.scrollOffset.x -= wheel * C_SCROLL_SPEED;
 
-#endif
+        float contentWidth = 50000; // how should i get the content width??
+        float maxScroll = std::max(0.0f, contentWidth - this->textView.width);
+
+        tab.scrollOffset.x = std::clamp(tab.scrollOffset.x, 0.0f, maxScroll);
+      }
+      else
+      {
+        tab.scrollOffset.y -= wheel * C_SCROLL_SPEED;
+
+        float contentHeight = tab.lines.size() * C_TEXT_LINE_HEIGHT;
+        float maxScroll = std::max(0.0f, contentHeight - this->textView.height);
+
+        tab.scrollOffset.y = std::clamp(tab.scrollOffset.y, 0.0f, maxScroll);
+      }
+
+      tab.getLines();
     }
   }
 
