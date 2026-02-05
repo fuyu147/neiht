@@ -40,6 +40,7 @@ class program
       800,                               // width
       500                                // height
   };
+  Font font;
 
 public:
   program() : tabs(), state(PROGRAM_STATE_RUN)
@@ -47,6 +48,12 @@ public:
     InitWindow(1200, 700, "This is certainly a title of all times");
     SetExitKey(KEY_Q);
     SetWindowState(FLAG_WINDOW_RESIZABLE);
+
+    this->font = LoadFontEx("assets/IosevkaTerm-Regular.ttf", 30, 0, 250);
+  }
+  ~program()
+  {
+    UnloadFont(this->font);
   }
 
   void run()

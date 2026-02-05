@@ -1,8 +1,11 @@
 #include "program.hpp"
 
+#include <iomanip>
+#include <raylib.h>
+#include <sstream>
+
 #ifdef DEBUG
 #include <print>
-#include <sstream>
 #endif
 
 void proj::program::draw()
@@ -34,8 +37,14 @@ void proj::program::draw()
               y > this->textView.y + this->textView.height)
             continue;
 
-          DrawText(tab.lines[i].c_str(), this->textView.x - tab.scrollOffset.x,
-                   y, 30, WHITE);
+          std::stringstream strs;
+          strs << std::setw(3) << std::setfill(' ') << i + 1;
+
+          std::string line = strs.str() + " > " + tab.lines[i];
+
+          DrawTextEx(this->font, line.c_str(),
+                     (Vector2){this->textView.x - tab.scrollOffset.x, y}, 30, 0,
+                     WHITE);
         }
 
         EndScissorMode();

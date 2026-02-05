@@ -4,7 +4,7 @@
 
 void proj::Tab::getLines()
 {
-  std::ifstream fstream(this->file);
+  std::ifstream fstream(this->file, std::ios::binary);
 
   this->lines = {};
   if (fstream.is_open())

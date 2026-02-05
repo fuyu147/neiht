@@ -35,8 +35,8 @@ enum TAB_STATE
 
 struct Tab
 {
-  int         contentWidth = 0;
-  int         id           = -1;
+  int         contentWidth;
+  int         id;
   Rectangle   rect;
   std::string file;
   std::string title;
@@ -44,10 +44,11 @@ struct Tab
   TAB_STATE   state;
   Vector2     scrollOffset;
   vstring     lines;
+  Font       *font;
 
-  Tab(int id, std::string file, std::string title, Rectangle rect)
+  Tab(int id, std::string file, std::string title, Rectangle rect, Font *pfont)
       : rect(rect), file(file), title(title), action(TAB_ACTION_NONE),
-        state(TAB_STATE_DEFAULT), lines()
+        state(TAB_STATE_DEFAULT), lines(), font(pfont)
   {
   }
 

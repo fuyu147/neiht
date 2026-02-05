@@ -29,8 +29,11 @@ void proj::Tab::draw()
   // Check if the full title fits
   if (MeasureText(originalTitle, fontSize) <= availableWidth)
   {
-    DrawText(originalTitle, this->rect.x + 5, this->rect.y + 5, fontSize,
-             C_TAB_COLOR_TEXT);
+    // DrawText(originalTitle, this->rect.x + 5, this->rect.y + 5, fontSize,
+    //          C_TAB_COLOR_TEXT);
+    DrawTextEx(*this->font, originalTitle,
+               (Vector2){this->rect.x + 5, this->rect.y + 5}, 30, 0,
+               C_TAB_COLOR_TEXT);
     return;
   }
 
@@ -48,6 +51,7 @@ void proj::Tab::draw()
   }
 
   std::string finalTitle = truncated + ellipsis;
-  DrawText(finalTitle.c_str(), this->rect.x + 5, this->rect.y + 5, fontSize,
-           C_TAB_COLOR_TEXT);
+  DrawTextEx(*this->font, finalTitle.c_str(),
+             (Vector2){this->rect.x + 5, this->rect.y + 5}, fontSize, 0,
+             C_TAB_COLOR_TEXT);
 }

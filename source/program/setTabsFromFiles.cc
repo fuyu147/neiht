@@ -50,7 +50,7 @@ void proj::program::setTabsFromFiles(std::vector<std::string> files)
       int         position = file.find_last_of("/");
       std::string title    = file.substr(position + 1);
       this->tabs.push_back(Tab(this->getNextID(), file, title,
-                               calculateTabRectangle(this, file)));
+                               calculateTabRectangle(this, file), &this->font));
     }
   }
 }
