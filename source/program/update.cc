@@ -9,22 +9,21 @@
 
 void proj::program::update()
 {
-  int key = GetCharPressed();
-
   this->checkMouse();
+
+#ifdef DEBUG
+  for (auto &tab : this->tabs)
+  {
+    std::print("{}, ", tab.id);
+  }
+  std::println();
+#endif
 
   this->textView.x     = C_TEXT_VIEW_MARGIN;
   this->textView.y     = C_TEXT_VIEW_MARGIN + C_TAB_HEIGHT;
   this->textView.width = GetScreenWidth() - C_TEXT_VIEW_MARGIN * 2;
   this->textView.height =
       GetScreenHeight() - C_TEXT_VIEW_MARGIN * 2 - C_TAB_HEIGHT;
-
-#ifdef DEBUG
-  std::println("this->textView: {} {} {} {}", this->textView.x,
-               this->textView.y, this->textView.height, this->textView.width);
-
-  if (key != 0) std::println("key pressed: {}\n", (char)key);
-#endif
 
   if (this->tick++ > 10000) this->tick = 0;
 
@@ -56,8 +55,6 @@ void proj::program::update()
       tab.getLines();
     }
   }
-
-  handleKeys(key);
 }
 
 void proj::program::checkMouse()

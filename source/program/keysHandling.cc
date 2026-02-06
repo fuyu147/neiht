@@ -10,6 +10,7 @@ void proj::program::handleKeys(int key)
   {
     case KEY_ACTION_QUIT:
       this->state = PROGRAM_STATE_CLOSE;
+      break;
     case KEY_ACTION_OPEN_FILE_DIALOG:
       if (!dialogOpen.exchange(true))
       {
@@ -17,7 +18,6 @@ void proj::program::handleKeys(int key)
       }
       break;
     default:
-      this->state = PROGRAM_STATE_RUN;
       break;
   }
   return;
@@ -26,7 +26,9 @@ void proj::program::handleKeys(int key)
 void proj::program::spawnFileDialogThread()
 {
   std::thread([this] {
+    this->state = PROGRAM_STATE_FILEDIALOG;
     this->setTabsFromFiles(this->getFileFromDialog());
-    dialogOpen = false;
+    dialogOpen  = false;
+    this->state = PROGRAM_STATE_RUN;
   }).detach();
 }

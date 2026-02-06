@@ -47,7 +47,7 @@ struct Tab
   Font       *font;
 
   Tab(int id, std::string file, std::string title, Rectangle rect, Font *pfont)
-      : rect(rect), file(file), title(title), action(TAB_ACTION_NONE),
+      : rect(rect), file(file), title(title), action(TAB_ACTION_NONE), id(id),
         state(TAB_STATE_DEFAULT), lines(), font(pfont)
   {
   }

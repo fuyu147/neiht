@@ -26,6 +26,7 @@ enum PROGRAM_STATE
 {
   PROGRAM_STATE_CLOSE,
   PROGRAM_STATE_RUN,
+  PROGRAM_STATE_FILEDIALOG,
 };
 
 class program
@@ -46,8 +47,8 @@ public:
   program() : tabs(), state(PROGRAM_STATE_RUN)
   {
     InitWindow(1200, 700, "This is certainly a title of all times");
-    SetExitKey(KEY_Q);
     SetWindowState(FLAG_WINDOW_RESIZABLE);
+    SetExitKey({});
 
     this->font = LoadFontEx("assets/IosevkaTerm-Regular.ttf", 30, 0, 250);
   }
@@ -58,9 +59,11 @@ public:
 
   void run()
   {
-    while (!WindowShouldClose() && this->state != PROGRAM_STATE_CLOSE)
+    while (!WindowShouldClose())
     {
-      this->update();
+      handleKeys(GetCharPressed());
+      if (this->state == PROGRAM_STATE_CLOSE) return;
+      if (this->state == PROGRAM_STATE_RUN) this->update();
       this->draw();
     }
   }
