@@ -5,8 +5,6 @@
 
 #include "../tab/tab.hpp"
 
-typedef std::vector<std::string> vstring;
-
 namespace proj
 {
 const Color C_PROGAM_COLOR_BACKGROUND = (Color){0x21, 0x20, 0x1F, 0xFF};
@@ -31,11 +29,11 @@ enum PROGRAM_STATE
 
 class program
 {
-  vtab          tabs;
-  int           selectedTabID = -1;
-  int           tick          = 0;
-  PROGRAM_STATE state;
-  Rectangle     textView = {
+  std::vector<Tab> tabs;
+  int              selectedTabID = -1;
+  int              tick          = 0;
+  PROGRAM_STATE    state;
+  Rectangle        textView = {
       C_TEXT_VIEW_MARGIN,                // x
       C_TEXT_VIEW_MARGIN + C_TAB_HEIGHT, // y
       800,                               // width
@@ -68,20 +66,20 @@ public:
     }
   }
 
-  const vtab &getTabs() const
+  const std::vector<Tab> &getTabs() const
   {
     return this->tabs;
   }
 
 private:
-  int     getNextID();
-  void    checkMouse();
-  void    draw();
-  void    handleKeys(int key);
-  void    setTabsFromFiles(std::vector<std::string> files);
-  void    spawnFileDialogThread();
-  void    update();
-  vstring getFileFromDialog();
+  int                      getNextID();
+  void                     checkMouse();
+  void                     draw();
+  void                     handleKeys(int key);
+  void                     setTabsFromFiles(std::vector<std::string> files);
+  void                     spawnFileDialogThread();
+  void                     update();
+  std::vector<std::string> getFileFromDialog();
 };
 
 } // namespace proj

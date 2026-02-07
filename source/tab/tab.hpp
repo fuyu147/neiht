@@ -7,9 +7,6 @@
 
 namespace proj
 {
-
-typedef std::vector<std::string> vstring;
-
 const int   C_TAB_MARGIN                    = 10;
 const int   C_TAB_HEIGHT                    = 45;
 const int   C_TAB_MAX_WIDTH                 = 200;
@@ -35,21 +32,29 @@ enum TAB_STATE
 
 struct Tab
 {
-  int         contentWidth;
-  int         id;
-  Rectangle   rect;
-  std::string file;
-  std::string title;
-  TAB_ACTION  action;
-  TAB_STATE   state;
-  Vector2     scrollOffset;
-  vstring     lines;
-  Font       *font;
+  Font                    *font;
+  int                      contentWidth;
+  int                      id;
+  Rectangle                rect;
+  std::string              file;
+  std::string              title;
+  std::vector<std::string> lines;
+  TAB_ACTION               action;
+  TAB_STATE                state;
+  Vector2                  scrollOffset;
 
   Tab(int id, std::string file, std::string title, Rectangle rect, Font *pfont)
-      : rect(rect), file(file), title(title), action(TAB_ACTION_NONE), id(id),
-        state(TAB_STATE_DEFAULT), lines(), font(pfont)
   {
+    this->font         = pfont;
+    this->contentWidth = 0;
+    this->id           = id;
+    this->rect         = rect;
+    this->file         = file;
+    this->title        = title;
+    this->lines        = {};
+    this->action       = TAB_ACTION_NONE;
+    this->state        = TAB_STATE_DEFAULT;
+    this->scrollOffset = {};
   }
 
   void  draw();
@@ -58,6 +63,4 @@ struct Tab
   void  updateState(bool isHoveredByMouse, bool isSelected);
   Color getBackgroundColorFromState();
 };
-
-typedef std::vector<Tab> vtab;
 }; // namespace proj
