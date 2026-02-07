@@ -1,7 +1,7 @@
 # Based on Microsoft style
 ---
 Language:        Cpp
-AccessModifierOffset: -2
+AccessModifierOffset: -8
 
 AlignAfterOpenBracket: Align
 AlignConsecutiveMacros: true
@@ -69,7 +69,7 @@ BreakFunctionDefinitionParameters: false
 BreakInheritanceList: BeforeColon
 BreakStringLiterals: true
 BreakTemplateDeclarations: MultiLine
-ColumnLimit:     80
+ColumnLimit:     120
 CommentPragmas:  '^ IWYU pragma:'
 CompactNamespaces: false
 ConstructorInitializerIndentWidth: 4
@@ -112,7 +112,7 @@ IndentExternBlock: AfterExternBlock
 IndentGotoLabels: true
 IndentPPDirectives: None
 IndentRequiresClause: true
-IndentWidth:     2
+IndentWidth:     8
 IndentWrappedFunctionNames: false
 InsertBraces:    false
 InsertNewlineAtEOF: false

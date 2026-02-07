@@ -4,9 +4,8 @@
 
 void proj::Tab::getContentWidth()
 {
-  for (auto &line : this->lines)
-  {
-    this->contentWidth =
-        std::max(this->contentWidth, MeasureText(line.c_str(), 30));
-  }
+        for (auto &line : this->lines)
+        {
+                this->contentWidth = std::max(this->contentWidth, MeasureText(line.c_str(), 30));
+        }
 }
