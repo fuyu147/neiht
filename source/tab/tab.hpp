@@ -14,6 +14,7 @@ const Color C_TAB_COLOR_BACKGROUND_DEFAULT  = (Color){0x3E, 0x3B, 0x39, 0xFF};
 const Color C_TAB_COLOR_BACKGROUND_HOVERED  = (Color){0x3C, 0x38, 0x36, 0xFF};
 const Color C_TAB_COLOR_BACKGROUND_SELECTED = (Color){0x8E, 0xC0, 0x7C, 0xFF};
 const Color C_TAB_COLOR_TEXT                = (Color){255, 255, 255, 255};
+const int   C_TAB_TEXT_SIZE                 = 36;
 
 enum TAB_ACTION
 {
@@ -32,7 +33,6 @@ enum TAB_STATE
 
 struct Tab
 {
-        Font                    *font;
         int                      contentWidth;
         int                      id;
         Rectangle                rect;
@@ -43,9 +43,8 @@ struct Tab
         TAB_STATE                state;
         Vector2                  scrollOffset;
 
-        Tab(int id, std::string file, std::string title, Rectangle rect, Font *pfont)
+        Tab(int id, std::string file, std::string title, Rectangle rect)
         {
-                this->font         = pfont;
                 this->contentWidth = 0;
                 this->id           = id;
                 this->rect         = rect;
@@ -57,7 +56,23 @@ struct Tab
                 this->scrollOffset = {};
         }
 
-        void  draw();
+        void update()
+        {
+                switch (this->action)
+                {
+
+                        case TAB_ACTION_READ:
+                                this->getLines();
+                                this->action = TAB_ACTION_NONE;
+                                break;
+                        case TAB_ACTION_CLOSE:
+                        case TAB_ACTION_NONE:
+                        case TAB_ACTION_WRITE:
+                                break;
+                }
+        }
+
+        void  draw(Font &font, int fontSize);
         void  getContentWidth();
         void  getLines();
         void  updateState(bool isHoveredByMouse, bool isSelected);

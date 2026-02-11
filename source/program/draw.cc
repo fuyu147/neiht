@@ -16,7 +16,8 @@ void proj::program::draw()
 
         for (auto &tab : this->tabs)
         {
-                tab.draw();
+                Font &tabFont = this->getFont(C_TAB_TEXT_SIZE);
+                tab.draw(tabFont, C_TAB_TEXT_SIZE);
 
                 if (tab.id == this->selectedTabID)
                 {
@@ -30,19 +31,22 @@ void proj::program::draw()
 
                                 for (int i = 0; i < tab.lines.size(); i++)
                                 {
-                                        float y = this->textView.y + i * C_TEXT_LINE_HEIGHT - tab.scrollOffset.y;
+                                        float y = this->textView.y + i * (this->actualFontSize + C_TEXT_LINE_SPACING) -
+                                                  tab.scrollOffset.y;
 
-                                        if (y + C_TEXT_LINE_HEIGHT < this->textView.y ||
+                                        if (y + this->actualFontSize < this->textView.y ||
                                             y > this->textView.y + this->textView.height)
                                                 continue;
 
                                         std::stringstream strs;
                                         strs << std::setw(3) << std::setfill(' ') << i + 1;
 
-                                        std::string line = strs.str() + " > " + tab.lines[i];
+                                        std::string line  = strs.str() + " > " + tab.lines[i];
 
-                                        DrawTextEx(this->font, line.c_str(),
-                                                   (Vector2){this->textView.x - tab.scrollOffset.x, y}, 30, 0, WHITE);
+                                        Font &contentFont = this->getFont(this->actualFontSize);
+                                        DrawTextEx(contentFont, line.c_str(),
+                                                   (Vector2){this->textView.x - tab.scrollOffset.x, y},
+                                                   this->actualFontSize, 0, WHITE);
                                 }
 
                                 EndScissorMode();

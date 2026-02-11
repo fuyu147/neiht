@@ -17,14 +17,13 @@ Color proj::Tab::getBackgroundColorFromState()
         return BLACK;
 }
 
-void proj::Tab::draw()
+void proj::Tab::draw(Font &font, int fontSize)
 {
         DrawRectangleRec(this->rect, this->getBackgroundColorFromState());
 
         float       textPadding    = 10.0f; // 5px left, 5px right
         float       availableWidth = this->rect.width - textPadding;
         const char *originalTitle  = this->title.c_str();
-        int         fontSize       = 30;
 
         // Check if the full title fits
         if (MeasureText(originalTitle, fontSize) <= availableWidth)
@@ -32,7 +31,7 @@ void proj::Tab::draw()
                 // DrawText(originalTitle, this->rect.x + 5, this->rect.y + 5,
                 // fontSize,
                 //          C_TAB_COLOR_TEXT);
-                DrawTextEx(*this->font, originalTitle, (Vector2){this->rect.x + 5, this->rect.y + 5}, 30, 0,
+                DrawTextEx(font, originalTitle, (Vector2){this->rect.x + 5, this->rect.y + 5}, fontSize, 0,
                            C_TAB_COLOR_TEXT);
                 return;
         }
@@ -49,6 +48,6 @@ void proj::Tab::draw()
         }
 
         std::string finalTitle = truncated + ellipsis;
-        DrawTextEx(*this->font, finalTitle.c_str(), (Vector2){this->rect.x + 5, this->rect.y + 5}, fontSize, 0,
+        DrawTextEx(font, finalTitle.c_str(), (Vector2){this->rect.x + 5, this->rect.y + 5}, fontSize, 0,
                    C_TAB_COLOR_TEXT);
 }
